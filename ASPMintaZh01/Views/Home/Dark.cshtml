@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<ASPMintaZh01.Models.SuperHeroModel>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Contact";
 }
-
-<a href="/Home/ResetHealth">Reset Health</a> <br/>
-
 @{
     foreach (var item in @Model)
     {
@@ -18,14 +15,14 @@
             @: <font color="red"><u>@item.Name</u></font> <br />
         }
 
-        <img width="150" src="@Url.Action("GetImage", new {id=item.Id})" /> <br />
+        <img width="150" src="@Url.Action("GetImage", new { id = item.Id })" /> <br />
 
         <font color="red">@item.Power</font>
         <font color="blue">@item.Speed</font>
         <font color="green">@item.Magic</font>
         <br />
-        @: Health: <font color="red"> @item.Health </font> <br /> 
-        <a href="/Home/Delete?id=@item.Id">Remove hero</a> <br />
+        @: Health: <font color="red"> @item.Health </font> <br/>
+        <a href="/Home/Game?id=@item.Id">Play Hero!</a> <br />
 
     }
 }

@@ -1,0 +1,56 @@
+﻿@model ASPMintaZh01.Models.SuperHeroViewModel
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Addd</title>
+</head>
+<body>
+
+    <h4>Add SuperHero</h4>
+
+    @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @: Name <br />
+        <input type="text" name="name" value="@Model.Name" /> <br />
+        <font color="red">
+            @Html.ValidationMessageFor(m => m.Name)
+        </font> <br />
+
+        @: Power <br />
+        <input type="number" name="power" value="@Model.Power" /> <br />
+        <font color="red">
+            @Html.ValidationMessageFor(m => m.Power)
+        </font> <br />
+        @: Speed <br />
+        <input type="number" name="speed" value="@Model.Speed" /> <br />
+        <font color="red">
+            @Html.ValidationMessageFor(m => m.Speed)
+        </font> <br />
+        @: Magic <br />
+        <input type="number" name="magic" value="@Model.Magic" /> <br />
+        <font color="red">
+            @Html.ValidationMessageFor(m => m.Magic)
+        </font> <br />
+        @: Side <br />
+        <select name="side">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+        </select> <br />
+        <font color="red">
+            @Html.ValidationMessageFor(m => m.Side)
+        </font> <br />
+        @: Image <br />
+        <input type="file" name="imagetoupload" /> <br />
+        <input type="submit" value="Add" />
+    }
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</body>
+</html>

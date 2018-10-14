@@ -5,33 +5,73 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ASPMintaZh01.Models;
+using ASPMintaZh01.Data;
 
 namespace ASPMintaZh01.Controllers
 {
     public class HomeController : Controller
     {
+        GameLogic logic;
+        public HomeController(SuperHeroContext dbcontext)
+        {
+            logic = new GameLogic(dbcontext);
+        }
         public IActionResult Index()
         {
-            return View();
+            return View(logic.GetAllHero());
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public IActionResult Add()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return View(new SuperHeroViewModel());
         }
 
-        public IActionResult Contact()
+        [HttpGet]
+        public IActionResult Game(int id)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            return View(logic.Fight(id));
         }
 
-        public IActionResult Privacy()
+        public IActionResult ResetHealth()
         {
-            return View();
+            logic.ResetHealth();
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            logic.DeleteHero(id);
+            return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public IActionResult Add(SuperHeroViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+            logic.AddHero(vm);
+            return RedirectToAction("Index");
+        }
+
+        public FileContentResult GetImage(int id)
+        {
+            var hero = logic.GetHeroById(id);
+            return File(hero.Image, hero.ContentType);
+        }
+
+        public IActionResult Dark()
+        {
+            return View(logic.GetAllHero("dark"));
+        }
+
+        public IActionResult Light()
+        {
+            return View(logic.GetAllHero("light"));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

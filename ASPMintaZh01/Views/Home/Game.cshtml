@@ -1,0 +1,30 @@
+﻿@model ASPMintaZh01.Models.FightViewModel
+
+
+<div>
+    <h3>Player</h3>
+    <h5>@Model.Player.Name</h5>
+    <b>Health: @Model.Player.Health</b>
+    <img width="150" src="@Url.Action("GetImage", new {id=Model.Player.Id})" /> <br />
+</div>
+<div>
+    <h3>Computer</h3>
+    <h5>@Model.Computer.Name</h5>
+    <b>Health: @Model.Computer.Health</b>
+    <img width="150" src="@Url.Action("GetImage", new {id=Model.Computer.Id})" /> <br />
+</div>
+<div>
+    <b>Winner: @Model.Winner</b>
+</div>
+
+@{
+    if (Model.Player.Side == "light")
+    {
+        <a href="/Home/Light">Go back</a>
+    }
+    else
+    {
+        <a href="/Home/Dark">Go back</a>
+    }
+}
+
